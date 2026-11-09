@@ -29,17 +29,28 @@ This is a GUI-only plugin. It does not add commands or features to OpenCode's te
 
 ## Install
 
-After `opencode-themes` is published to npm, install it with:
+Publishing a GitHub Release publishes `@isavonxz-type/opencode-themes` to GitHub Packages. GitHub Packages requires a classic personal access token with `read:packages`, even for public packages.
+
+Set a `GITHUB_PACKAGES_TOKEN` environment variable to that token, then add this to your user-level `.npmrc` (`~/.npmrc`):
+
+```ini
+@isavonxz-type:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
+```
+
+Never commit your token. OpenCode uses Bun's `.npmrc` support to load scoped plugins. Install the plugin with:
 
 ```sh
-opencode plugin add opencode-themes
+opencode plugin add @isavonxz-type/opencode-themes
 ```
+
+The same registry configuration works with pnpm. To add the package to another Node.js project, run `pnpm add @isavonxz-type/opencode-themes`; this alone does not activate it as an OpenCode plugin.
 
 You can also add the package to your OpenCode configuration file (`opencode.json` or `opencode.jsonc`):
 
 ```jsonc
 {
-  "plugins": ["opencode-themes"]
+  "plugins": ["@isavonxz-type/opencode-themes"]
 }
 ```
 
@@ -68,13 +79,13 @@ The themes respect OpenCode's light and dark appearance variants. Select a theme
 
 ## Update or remove
 
-For an npm installation, update the plugin with:
+For an installed plugin, update it with:
 
 ```sh
-opencode plugin update opencode-themes
+opencode plugin update @isavonxz-type/opencode-themes
 ```
 
-To remove it, run `opencode plugin remove opencode-themes` or remove it from the `plugins` array in your config. For a local installation, remove its path from that array.
+To remove it, run `opencode plugin remove @isavonxz-type/opencode-themes` or remove it from the `plugins` array in your config. For a local installation, remove its path from that array.
 
 ## Development
 
@@ -113,7 +124,7 @@ Versions follow [Semantic Versioning](https://semver.org/):
 - `minor` for new themes or backwards-compatible additions
 - `major` for breaking changes, such as removing or renaming a theme ID
 
-`npm version patch`, `npm version minor`, or `npm version major` updates `package.json` and `package-lock.json`, then creates a version commit and matching `vX.Y.Z` Git tag. Push the commit and tag, then publish release notes from that tag in GitHub Releases. Record user-visible changes in [CHANGELOG.md](CHANGELOG.md). GitHub releases do not publish the package to npm; npm publication is a separate step.
+`npm version patch`, `npm version minor`, or `npm version major` updates `package.json` and `package-lock.json`, then creates a version commit and matching `vX.Y.Z` Git tag. Push the commit and tag, then publish release notes from that tag in GitHub Releases. Publishing the release automatically publishes the package to GitHub Packages. Record user-visible changes in [CHANGELOG.md](CHANGELOG.md).
 
 GitHub Actions runs theme validation, checks that the gallery is up to date, and builds the plugin on pushes and pull requests to `main`.
 

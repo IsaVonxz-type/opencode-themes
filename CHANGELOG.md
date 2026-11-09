@@ -2,6 +2,13 @@
 
 Notable changes to `opencode-themes` are recorded here.
 
+## [1.0.1] - 2026-11-09
+
+### Added
+
+- GitHub Packages distribution as `@isavonxz-type/opencode-themes`.
+- Automated public package publishing when a GitHub Release is published.
+
 ## [1.0.0] - 2026-11-09
 
 ### Added

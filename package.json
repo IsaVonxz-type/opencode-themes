@@ -1,14 +1,22 @@
 {
-  "name": "opencode-themes",
-  "version": "1.0.0",
+  "name": "@isavonxz-type/opencode-themes",
+  "version": "1.0.1",
   "description": "Nine hand-tuned color themes (light and dark) for OpenCode Desktop.",
   "keywords": ["opencode", "opencode-plugin", "opencode-theme", "theme", "desktop"],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IsaVonxz-type/opencode-themes.git"
+  },
   "type": "module",
   "exports": {
     "./gui-experimental": "./dist/gui-experimental.cjs"
   },
   "files": ["dist", "assets/theme-gallery.svg", "README.md", "CHANGELOG.md", "LICENSE"],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "vite build",
     "generate:gallery": "node scripts/generate-gallery.mjs",
