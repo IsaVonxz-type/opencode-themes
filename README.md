@@ -14,6 +14,12 @@
 - Thirteen Grove
 - Velvet Tide
 
+## Preview
+
+![Gallery showing light and dark palette previews for all nine themes](assets/theme-gallery.svg)
+
+*These palette-driven previews are generated from the theme files; they are not screenshots of the OpenCode interface.*
+
 ## Requirements
 
 - OpenCode Desktop 2.2.6 or later
@@ -41,6 +47,8 @@ To use a local checkout before or instead of an npm release, build it and add it
 
 ```sh
 npm install
+npm run validate:themes
+npm run generate:gallery
 npm run build
 ```
 
@@ -90,9 +98,24 @@ When using a local checkout, OpenCode reloads the GUI plugin after each build. T
 1. Add a theme JSON file under `src/themes/` using the [OpenCode desktop theme schema](https://opencode.ai/desktop-theme.json).
 2. Give it a unique `id`, a display `name`, and `light` and `dark` variants.
 3. Import it and add it to the `themes` list in `src/gui.tsx`.
-4. Run `npm run build` and test it in OpenCode Desktop.
+4. Run `npm run validate:themes`, `npm run generate:gallery`, and `npm run build`.
+5. Check the generated gallery and test the theme in OpenCode Desktop.
 
 The plugin registers each theme with OpenCode's GUI API. Themes appear in **Settings > Appearance > Theme**.
+
+The validator checks theme IDs, names, color values, registration, and contrast against each variant's neutral background. It requires at least 7:1 for primary ink, 4.5:1 for syntax and Markdown text, and 3:1 for horizontal rules. These checks help catch regressions; always review the rendered theme in OpenCode Desktop too.
+
+## Versions and releases
+
+Versions follow [Semantic Versioning](https://semver.org/):
+
+- `patch` for fixes and small color adjustments
+- `minor` for new themes or backwards-compatible additions
+- `major` for breaking changes, such as removing or renaming a theme ID
+
+`npm version patch`, `npm version minor`, or `npm version major` updates `package.json` and `package-lock.json`, then creates a version commit and matching `vX.Y.Z` Git tag. Push the commit and tag, then publish release notes from that tag in GitHub Releases. Record user-visible changes in [CHANGELOG.md](CHANGELOG.md). GitHub releases do not publish the package to npm; npm publication is a separate step.
+
+GitHub Actions runs theme validation, checks that the gallery is up to date, and builds the plugin on pushes and pull requests to `main`.
 
 ## License
 

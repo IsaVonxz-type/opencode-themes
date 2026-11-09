@@ -8,10 +8,12 @@
   "exports": {
     "./gui-experimental": "./dist/gui-experimental.cjs"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": ["dist", "assets/theme-gallery.svg", "README.md", "CHANGELOG.md", "LICENSE"],
   "scripts": {
     "build": "vite build",
-    "prepublishOnly": "npm run build"
+    "generate:gallery": "node scripts/generate-gallery.mjs",
+    "prepublishOnly": "npm run validate:themes && npm run generate:gallery && npm run build",
+    "validate:themes": "node scripts/validate-themes.mjs"
   },
   "dependencies": {
     "@opencode/plugin": "^2.2.6"
